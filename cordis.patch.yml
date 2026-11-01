@@ -1,0 +1,10 @@
+# dsh-orchestrator bundle layer: ticket-based orchestration.
+#
+# This row mounts one plugin that owns an append-only ticket/outbox log and
+# drives worker sessions through the host's own `ctx.sessionController`. It
+# adds no daemon, no port and no second process: if the controller is absent
+# the tools answer NO_SESSION_CONTROLLER instead of pretending the outbox is
+# empty.
+- insert:
+    - id: orchestrator
+      name: '@snow-the/dsh-orchestrator'

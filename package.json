@@ -1,0 +1,51 @@
+{
+  "name": "@snow-the/dsh-orchestrator",
+  "version": "0.1.0",
+  "description": "Ticket-based orchestration for DSH: durable work tickets, a crash-recoverable outbox over ctx.sessionController, and a structured report path so ticket state is never inferred from a worker's free text.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "license": "MIT",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "orchestration",
+    "super-agent",
+    "outbox",
+    "deepseek-harness"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json --emitDeclarationOnly && esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --external:@deepseek-ai/* --log-level=warning && esbuild src/core.ts --bundle --platform=node --format=esm --outfile=dist/core.js --log-level=warning",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "pretest": "npm run build",
+    "test": "node --test test/core.test.mjs test/plugin.test.mjs"
+  },
+  "files": [
+    "dist",
+    "cordis.patch.yml",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "dsh": ">=0.2.1-rc.5"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "level": "enhanced",
+    "compatibility": {
+      "dshReleases": [
+        "0.2.1-rc.5"
+      ],
+      "verifiedAgainst": "0.2.1-rc.5"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "esbuild": "^0.24.2",
+    "typescript": "^5.7.2"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh": ">=0.2.1-rc.5"
+  }
+}
